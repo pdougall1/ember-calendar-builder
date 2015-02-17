@@ -28,6 +28,6 @@ test('a calendar can make a day active', function (assert) {
   var day = calendar.findDay('2015-06-15');
   assert.equal(day.active, false);
 
-  calendar.makeActive('2015-03-15');
+  calendar.makeActive('2015-06-15');
   assert.equal(day.active, true);
 });

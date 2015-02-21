@@ -1,11 +1,3 @@
-html, body {
-  margin: 20px;
-}
-
-.active {
-  background: orange;
-}
-
 .main-calendar {
   height: 100%;
   /* Responsive Calendar for Foundation */

@@ -19,7 +19,7 @@ var Month = function (monthKey) {
       var weekKey = this.getWeekKey(guideDate);
       var dateKey = moment(guideDate).format('YYYY-MM-DD');
       var day = this.days[dateKey];
-      if (!day) { day = new Day(dateKey) }
+      if (!day) { day = new Day(dateKey); }
       if (_month[weekKey]) {
         _month[weekKey].push(day);
       } else {
@@ -76,7 +76,7 @@ var Month = function (monthKey) {
       date = moment(date).year(yearMonthBelongsTo);
     }
     var weekNum = moment(date).week();
-    if (weekNum === 53) { weekNum = 1 }; // handles that rare occasion when there are more weeks in the year
+    if (weekNum === 53) { weekNum = 1; } // handles that rare occasion when there are more weeks in the year
     return moment(date).format('YYYY-') + weekNum;
   };
 };

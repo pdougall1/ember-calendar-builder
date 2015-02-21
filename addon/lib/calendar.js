@@ -16,7 +16,18 @@ var Calendar = function () {
   this.findDay = function (dateKey) {
     var date = moment(dateKey);
     var month = this.months[date.format('YYYY-MM')];
-    return month.days[date.format('YYYY-MM-DD')];
+    return month.days[this.getDateKey(date)];
+  };
+
+  this.addEvent = function (event) {
+    var calendar = this;
+    var beginTime = moment(event.get('beginTime'));
+    var endTime = moment(event.get('endTime'));
+
+    this.getAllDaysBetween(beginTime, endTime).forEach(function (date) {
+      calendar.findDay(calendar.getDateKey(date)).addEvent(event);
+    });
+    
   };
 
 
@@ -33,6 +44,22 @@ var Calendar = function () {
       return month;
     }
   };
+
+  this.getAllDaysBetween = function (beginDate, endDate) {
+    beginDate = moment(beginDate);
+    endDate = moment(endDate);
+    var dates = [beginDate];
+    while (beginDate.format('YYYY-MM-DD') !== endDate.format("YYYY-MM-DD")) {
+      dates.push(moment(beginDate));
+      beginDate.add(1, 'day');
+    }
+    return dates;
+  };
+
+  this.getDateKey = function (date) {
+    return moment(date).format('YYYY-MM-DD');
+  };
+
 };
 
 export default Calendar;

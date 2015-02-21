@@ -27,7 +27,16 @@ var Calendar = function () {
     this.getAllDaysBetween(beginTime, endTime).forEach(function (date) {
       calendar.findDay(calendar.getDateKey(date)).addEvent(event);
     });
-    
+  };
+
+  this.removeEvent = function (event) {
+    var calendar = this;
+    var beginTime = moment(event.get('beginTime'));
+    var endTime = moment(event.get('endTime'));
+
+    this.getAllDaysBetween(beginTime, endTime).forEach(function (date) {
+      calendar.findDay(calendar.getDateKey(date)).removeEvent(event);
+    });
   };
 
 

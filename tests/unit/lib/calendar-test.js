@@ -55,10 +55,23 @@ test('a calendar can add an event that is on a single day', function (assert) {
                  id: 1234 };
   
   var anEvent = Ember.Object.create( params );
-
   calendar.showMe('2015-06');
   calendar.addEvent(anEvent);
-
   var dayWithEvent = calendar.findDay('2015-06-01');
+
   assert.equal(Object.keys(dayWithEvent.events).length, 1);
+});
+
+test('a calendar can remove an event on a single day', function (assert) {
+  var params = { beginTime: moment('2015-06-01 09:30'), 
+                 endTime: moment('2015-06-01 11:30'), 
+                 id: 1234 };
+  var dayKey = '2015-06-01';
+  var anEvent = Ember.Object.create( params );
+  calendar.showMe('2015-06');
+  var dayWithEvent = calendar.findDay(dayKey);
+  assert.equal(Object.keys(dayWithEvent.events).length, 1);
+
+  calendar.removeEvent(anEvent);
+  assert.equal(dayWithEvent.events[dayWithEvent.getEventKey(anEvent)], null);
 });

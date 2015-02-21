@@ -26,6 +26,10 @@ var Day = function (dateKey, options) {
     this.events[this.getEventKey(event)] = event;
   };
 
+  this.removeEvent = function (event) {
+    this.events[this.getEventKey(event)] = null;
+  };
+
   this.getEventKey = function (event) {
     var beginUnix, endUnix, id;
     beginUnix = moment(event.get('beginDate')).unix();

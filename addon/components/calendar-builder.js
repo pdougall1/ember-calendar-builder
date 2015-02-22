@@ -15,6 +15,7 @@ export default Ember.Component.extend({
 
   init: function () {
     this.applyOptions();
+    this.set('eventCount', this.get('calendar.eventCount'));
     this.get('calendar').component = this; // this is probably bad :(
     this._super();
   },

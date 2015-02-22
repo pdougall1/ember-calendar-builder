@@ -15,7 +15,7 @@ export default Ember.Route.extend({
         name: ordinals[i] + " event"
       }));      
     }
-    controller.set('events', events);
+    controller.calendarAddEvents(events);
   }
 
 });

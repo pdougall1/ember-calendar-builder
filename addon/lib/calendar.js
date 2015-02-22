@@ -2,6 +2,7 @@ import Month from 'ember-calendar-builder/lib/month';
 
 var Calendar = function (initialMonthKey) {
   this.months = {};
+  this.eventCount = 0;
 
   this.showMe = function (monthKey) {
     var month = this.findOrCreate(monthKey);
@@ -45,14 +46,21 @@ var Calendar = function (initialMonthKey) {
 
   // private
 
+  // this could be DRYed up
   this.incrimentEventCount = function () {
-    var initial = this.component.get('eventCount');
-    this.component.set('eventCount', initial + 1);
+    var initial = this.eventCount;
+    this.eventCount = initial + 1;
+    if (this.component) {
+      this.component.set('eventCount', initial + 1);
+    }
   };
 
   this.decrimentEventCount = function () {
-    var initial = this.component.get('eventCount');
-    this.component.set('eventCount', initial - 1);
+    var initial = this.eventCount;
+    this.eventCount = initial - 1;
+    if (this.component) {
+      this.component.set('eventCount', initial - 1);
+    }
   };
 
   this.findOrCreate = function (monthKey) {

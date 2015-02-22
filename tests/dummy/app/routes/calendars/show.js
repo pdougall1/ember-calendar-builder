@@ -5,7 +5,7 @@ export default Ember.Route.extend({
   setupController: function (controller) {
     var events, ordinals, i, today;
     events = [];
-    ordinals = ['first', 'second', 'third', 'forth', 'sssss', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh'];
+    ordinals = ['first', 'second'];
     today = new Date();
 
     for (i = 0; i < ordinals.length; i++) {

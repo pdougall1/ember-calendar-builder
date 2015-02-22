@@ -1,14 +1,9 @@
 import Ember from 'ember';
+import CalendarMixin from 'ember-calendar-builder/mixins/calendar-mixin';
 
-export default Ember.Controller.extend({
-
-  someDate: function () {
-    return '2000-01-01';
-  }.property(),
-
-  someOptions: function () {
-    return { hasNewEventButton: true };
-  }.property(),
+export default Ember.Controller.extend(CalendarMixin, {
+  calendarDate: '2000-01-01',
+  someOptions: { hasNewEventButton: true },
 
   actions: {
     newEvent: function (day) {
@@ -17,7 +12,7 @@ export default Ember.Controller.extend({
         endTime: day.date.toDate(),
         name: "example event"
       });
-      this.get('events').pushObject(event);
+      this.calendarAddEvent(event);
     }
   }
 

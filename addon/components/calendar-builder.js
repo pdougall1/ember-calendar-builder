@@ -5,20 +5,17 @@
 
 
 import Ember from 'ember';
-import Calendar from 'ember-calendar-builder/lib/calendar';
 
 export default Ember.Component.extend({
+  eventCount: 0,
 
   defaultOptions: {
     hasNewEventButton: false
   },
 
   init: function () {
-    var events = this.get('events');
-    this.set('calendar', new Calendar(this.get('currentMonthKey')));
     this.applyOptions();
-    this.addEvents(events);
-    this.set('eventsLength', events.get('length'));
+    this.get('calendar').component = this; // this is probably bad :(
     this._super();
   },
 
@@ -46,7 +43,7 @@ export default Ember.Component.extend({
 
   month: function () {
     return this.get('calendar').showMe(this.get("currentMonthKey"));
-  }.property('currentMonthKey', 'eventsChangeNotifier'),
+  }.property('currentMonthKey', 'eventCount'),
 
   actions: {
     makeDayActive: function (day) {
@@ -56,32 +53,7 @@ export default Ember.Component.extend({
 
     newEvent: function (day) {
       this.sendAction('newEvent', day);
-    },
-
-    removeEvent: function (event) {
-      // This will be a little harder because we don't know which event is being removed
     }
-  },
-
-  // private
-
-  eventsChangeNotifier: 0,
-  updateCalendarIfEventAdded: function () {
-    var oldLength = this.get('eventsLength');
-    var newLength = this.get('events.length');
-    if (newLength > oldLength) {
-      this.get('calendar').addEvent(this.get('events.lastObject'));
-    }
-    var notifier = this.get('eventsChangeNotifier')
-    this.set('eventsChangeNotifier', notifier += 1);
-  }.observes('events.length'),
-
-  addEvents: function (events) {
-    var calendar = this.get('calendar');
-    events.forEach(function (event) {
-      // should actually pass in accessor functions for begin and end times
-      calendar.addEvent(event); 
-    });
   }
 
 });

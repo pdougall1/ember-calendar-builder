@@ -7,6 +7,7 @@
         <li>{{currentMonthFormatted}}</li>
       </ul>
     </div>
+    <h1>{{eventCount}}</h1>
 
 
     <ul class="calendar">
@@ -39,7 +40,7 @@
         {{#each week in month}}
           <li class="week">
             {{#each day in week}}
-              <div class='day large-1 :medium-1 small-1'>
+              <div class='day'>
                 {{day.ofMonth}}
                 {{#if day.inCurrentMonth}}
                   {{#if hasNewEventButton}}

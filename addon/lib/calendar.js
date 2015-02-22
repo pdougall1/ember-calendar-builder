@@ -27,6 +27,7 @@ var Calendar = function (initialMonthKey) {
     this.getAllDaysBetween(beginTime, endTime).forEach(function (date) {
       calendar.findOrCreate(calendar.getMonthKey(date)); // first make sure the month exists
       calendar.findDay(calendar.getDateKey(date)).addEvent(event);
+      calendar.incrimentEventCount();
     });
   };
 
@@ -37,11 +38,22 @@ var Calendar = function (initialMonthKey) {
 
     this.getAllDaysBetween(beginTime, endTime).forEach(function (date) {
       calendar.findDay(calendar.getDateKey(date)).removeEvent(event);
+      calendar.decrimentEventCount();
     });
   };
 
 
   // private
+
+  this.incrimentEventCount = function () {
+    var initial = this.component.get('eventCount');
+    this.component.set('eventCount', initial + 1);
+  };
+
+  this.decrimentEventCount = function () {
+    var initial = this.component.get('eventCount');
+    this.component.set('eventCount', initial - 1);
+  };
 
   this.findOrCreate = function (monthKey) {
     var month;

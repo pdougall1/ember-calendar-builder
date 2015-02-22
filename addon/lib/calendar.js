@@ -1,6 +1,6 @@
 import Month from 'ember-calendar-builder/lib/month';
 
-var Calendar = function () {
+var Calendar = function (initialMonthKey) {
   this.months = {};
 
   this.showMe = function (monthKey) {
@@ -25,6 +25,7 @@ var Calendar = function () {
     var endTime = moment(event.get('endTime'));
 
     this.getAllDaysBetween(beginTime, endTime).forEach(function (date) {
+      calendar.findOrCreate(calendar.getMonthKey(date)); // first make sure the month exists
       calendar.findDay(calendar.getDateKey(date)).addEvent(event);
     });
   };
@@ -65,9 +66,15 @@ var Calendar = function () {
     return dates;
   };
 
+  this.getMonthKey = function (date) {
+    return moment(date).format('YYYY-MM');
+  };
+
   this.getDateKey = function (date) {
     return moment(date).format('YYYY-MM-DD');
   };
+
+  this.findOrCreate(initialMonthKey);
 
 };
 

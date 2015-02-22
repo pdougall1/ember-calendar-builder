@@ -14,9 +14,11 @@ export default Ember.Component.extend({
   },
 
   init: function () {
-    this.set('calendar', new Calendar());
+    var events = this.get('events');
+    this.set('calendar', new Calendar(this.get('currentMonthKey')));
     this.applyOptions();
-    this.addEvents(this.get('events'));
+    this.addEvents(events);
+    this.set('eventsLength', events.get('length'));
     this._super();
   },
 
@@ -44,7 +46,7 @@ export default Ember.Component.extend({
 
   month: function () {
     return this.get('calendar').showMe(this.get("currentMonthKey"));
-  }.property('currentMonthKey'),
+  }.property('currentMonthKey', 'eventsChangeNotifier'),
 
   actions: {
     makeDayActive: function (day) {
@@ -54,20 +56,30 @@ export default Ember.Component.extend({
 
     newEvent: function (day) {
       this.sendAction('newEvent', day);
+    },
+
+    removeEvent: function (event) {
+      // This will be a little harder because we don't know which event is being removed
     }
   },
 
   // private
 
-  updateEvents: function () {
-    // TODO: when events are added or removed that needs to be reflected in the calendar.
-  }.observes('events'),
+  eventsChangeNotifier: 0,
+  updateCalendarIfEventAdded: function () {
+    var oldLength = this.get('eventsLength');
+    var newLength = this.get('events.length');
+    if (newLength > oldLength) {
+      this.get('calendar').addEvent(this.get('events.lastObject'));
+    }
+    var notifier = this.get('eventsChangeNotifier')
+    this.set('eventsChangeNotifier', notifier += 1);
+  }.observes('events.length'),
 
   addEvents: function (events) {
     var calendar = this.get('calendar');
-
-    events.each(function (event) {
-      // should actually pass in accessor functions to get the begin and end times
+    events.forEach(function (event) {
+      // should actually pass in accessor functions for begin and end times
       calendar.addEvent(event); 
     });
   }

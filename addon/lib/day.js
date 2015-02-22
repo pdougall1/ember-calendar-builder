@@ -38,6 +38,14 @@ var Day = function (dateKey, options) {
     return id + "_" + beginUnix + "_" + endUnix;
   };
 
+  this.makeViewable = function () {
+    var events = this.events;
+    var viewableEvents = Object.keys(events).map(function (eventKey) {
+      return events[eventKey];
+    });
+    this.viewableEvents = viewableEvents
+  }
+
   this.handleOptions();
   this.build();
 };

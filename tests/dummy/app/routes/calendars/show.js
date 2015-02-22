@@ -5,17 +5,16 @@ export default Ember.Route.extend({
   setupController: function (controller) {
     var events, ordinals, i, today;
     events = [];
-    ordinals = ['first', 'second', 'third'];
+    ordinals = ['first', 'second', 'third', 'forth', 'sssss', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh'];
     today = new Date();
 
     for (i = 0; i < ordinals.length; i++) {
       events.pushObject(this.store.createRecord('event', {
-        beginTime: moment(today).add(i, 'day').toDate(),
-        endTime: moment(today).add(i, 'day').toDate(),
+        beginTime: moment('2000-01-01').add(i, 'day').toDate(),
+        endTime: moment('2000-01-01').add(i, 'day').toDate(),
         name: ordinals[i] + " event"
       }));      
     }
-    
     controller.set('events', events);
   }
 

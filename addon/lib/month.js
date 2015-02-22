@@ -20,6 +20,7 @@ var Month = function (monthKey) {
       var dateKey = moment(guideDate).format('YYYY-MM-DD');
       var day = this.days[dateKey];
       if (!day) { day = new Day(dateKey); }
+      day.makeViewable();
       if (_month[weekKey]) {
         _month[weekKey].push(day);
       } else {

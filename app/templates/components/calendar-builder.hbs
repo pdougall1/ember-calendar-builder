@@ -41,14 +41,19 @@
             {{#each day in week}}
               <div class='day large-1 :medium-1 small-1'>
                 {{day.ofMonth}}
-                {{#if hasNewEventButton}}
-                  <div {{action 'newEvent' day}} class='new-event-button'>New</div>
+                {{#if day.inCurrentMonth}}
+                  {{#if hasNewEventButton}}
+                    <div {{action 'newEvent' day}} class='new-event-button'>New</div>
+                  {{/if}}
                 {{/if}}
-                <ul class='calendar-events-list'>
-                  {{#each event in day.content}}
-                    <span>{{event-bar event=event action="showEvent"}}</span>
-                  {{/each}}
-                </ul>
+                {{#if day.inCurrentMonth}}
+                  <ul class='calendar-events-list'>
+                    {{#each event in day.viewableEvents}}
+                      <li>EVENT : {{event.name}}</li>
+                      {{!-- <span>{{!event-bar event=event action="showEvent"}}</span> --}}
+                    {{/each}}
+                  </ul>
+                {{/if}}
 {{!--                 {{!#if day.today}}
                   <div>TODAY</div>
                 {{!/if}} --}}

@@ -14,10 +14,16 @@ export default Ember.Component.extend({
   },
 
   init: function () {
-    this.applyOptions();
-    this.set('eventCount', this.get('calendar.eventCount'));
-    this.get('calendar').component = this; // this is probably bad :(
-    this._super();
+    var calendar = this.get('calendar');
+    if (calendar) {
+      this.applyOptions();
+      this.set('eventCount', this.get('calendar.eventCount'));
+      calendar.component = this; // this is probably bad :(
+      this._super();
+    } else {
+      console.log('You do not currently have a calendar set.  This is probably because you have not included the CalendarMixin in your controller.');
+      console.log('Make sure you import CalendarMixin and extend from it in the controller.');
+    }
   },
 
   applyOptions: function () {

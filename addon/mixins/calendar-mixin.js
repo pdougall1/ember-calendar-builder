@@ -5,7 +5,12 @@ export default Ember.Mixin.create({
 
   init: function () {
     this._super();
-    this.set('calendar', new Calendar(this.get('calendarDate')));
+    var calendarDate = this.get('calendarDate');
+    if (calendarDate) {
+      this.set('calendar', new Calendar(calendarDate));
+    } else {
+      console.log('Make sure you set a calendarDate on your controller.');
+    }
   },
 
   calendarAddEvent: function (event) {

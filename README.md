@@ -1,4 +1,5 @@
 # Ember-calendar-builder
+# This is still very much a work in progress!
 
 This README outlines the details of collaborating on this Ember addon.
 

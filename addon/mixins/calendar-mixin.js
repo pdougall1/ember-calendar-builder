@@ -13,6 +13,10 @@ export default Ember.Mixin.create({
     }
   },
 
+  setInitialArray: function () {
+    this.calendarAddEvents(this.get('calendarEvents'));
+  }.observes('calendarEvents.length'),
+
   calendarAddEvent: function (event) {
     this.get('calendar').addEvent(event);
   },
@@ -20,6 +24,9 @@ export default Ember.Mixin.create({
   calendarAddEvents: function (events) {
     var _this = this;
     events.forEach( function (event) {
+      if (_this) {
+        console.log(_this.calendarAddEvent);  
+      }
       _this.calendarAddEvent(event);
     });
   },

@@ -8,20 +8,12 @@ export default Ember.Route.extend({
     }
   },
 
-  setupController: function (controller) {
-    var events, ordinals, i, today;
-    events = [];
-    ordinals = ['first', 'second'];
-    today = new Date();
+  model: function () {
+    return this.store.find('event');
+  },
 
-    for (i = 0; i < ordinals.length; i++) {
-      events.pushObject(this.store.createRecord('event', {
-        beginTime: moment('2000-01-01').add(i, 'day').toDate(),
-        endTime: moment('2000-01-01').add(i, 'day').toDate(),
-        name: ordinals[i] + " event"
-      }));      
-    }
-    controller.calendarAddEvents(events);
+  setupController: function (controller, model) {
+    controller.set('calendarEvents', model);
   }
 
 });

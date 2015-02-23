@@ -22,10 +22,10 @@ var Calendar = function (initialMonthKey) {
 
   this.addEvent = function (event) {
     var calendar = this;
-    var beginTime = moment(event.get('beginTime'));
+    var startTime = moment(event.get('startTime'));
     var endTime = moment(event.get('endTime'));
 
-    this.getAllDaysBetween(beginTime, endTime).forEach(function (date) {
+    this.getAllDaysBetween(startTime, endTime).forEach(function (date) {
       calendar.findOrCreate(calendar.getMonthKey(date)); // first make sure the month exists
       calendar.findDay(calendar.getDateKey(date)).addEvent(event);
       calendar.incrimentEventCount();
@@ -34,10 +34,10 @@ var Calendar = function (initialMonthKey) {
 
   this.removeEvent = function (event) {
     var calendar = this;
-    var beginTime = moment(event.get('beginTime'));
+    var startTime = moment(event.get('startTime'));
     var endTime = moment(event.get('endTime'));
 
-    this.getAllDaysBetween(beginTime, endTime).forEach(function (date) {
+    this.getAllDaysBetween(startTime, endTime).forEach(function (date) {
       calendar.findDay(calendar.getDateKey(date)).removeEvent(event);
       calendar.decrimentEventCount();
     });
@@ -75,14 +75,16 @@ var Calendar = function (initialMonthKey) {
     }
   };
 
-  this.getAllDaysBetween = function (beginDate, endDate) {
-    beginDate = moment(beginDate);
-    endDate = moment(endDate);
-    var dates = [beginDate];
-    while (beginDate.format('YYYY-MM-DD') !== endDate.format("YYYY-MM-DD")) {
-      dates.push(moment(beginDate));
-      beginDate.add(1, 'day');
+  this.getAllDaysBetween = function (startTime, endTime) {
+    startTime = moment(startTime);
+    endTime = moment(endTime);
+    var dates = [startTime];
+    while (startTime.format('YYYY-MM-DD') <= endTime.format("YYYY-MM-DD")) {
+      console.log(moment(startTime) + "____" + moment(endTime));
+      dates.push(moment(startTime));
+      startTime.add(1, 'day');
     }
+    
     return dates;
   };
 

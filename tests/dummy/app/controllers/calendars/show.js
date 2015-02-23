@@ -13,6 +13,14 @@ export default Ember.Controller.extend(CalendarMixin, {
         name: "example event"
       });
       this.calendarAddEvent(event);
+    },
+
+    previousMonth: function () {
+      console.log('go to previousMonth');
+    },
+
+    nextMonth: function () {
+      console.log('go to nextMonth');
     }
   }
 

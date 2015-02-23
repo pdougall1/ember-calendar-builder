@@ -73,6 +73,14 @@ export default Ember.Component.extend({
 
     newEvent: function (day) {
       this.sendAction('newEvent', day);
+    },
+
+    previousMonth: function () {
+      this.sendAction('previousMonth');
+    },
+
+    nextMonth: function () {
+      this.sendAction('nextMonth');
     }
   }
 

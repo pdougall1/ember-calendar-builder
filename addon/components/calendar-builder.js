@@ -10,6 +10,7 @@ export default Ember.Component.extend({
   eventCount: 0,
 
   defaultOptions: {
+    willSetHeight: false,
     hasNewEventButton: false
   },
 
@@ -24,6 +25,10 @@ export default Ember.Component.extend({
       console.log('You do not currently have a calendar set.  This is probably because you have not included the CalendarMixin in your controller.');
       console.log('Make sure you import CalendarMixin and extend from it in the controller.');
     }
+  },
+
+  didInsertElement: function () {
+    this.setHeight();
   },
 
   applyOptions: function () {
@@ -51,6 +56,14 @@ export default Ember.Component.extend({
   month: function () {
     return this.get('calendar').showMe(this.get("currentMonthKey"));
   }.property('currentMonthKey', 'eventCount'),
+
+  setHeight: function () {
+    var willSetHeight = this.get('willSetHeight');
+    if (willSetHeight) {
+      var height = (parseInt($(window).height()) - 135) / this.get('month.length');
+      $('.main-calendar .calendar .day').css('height', height);
+    }
+  }.observes('currentMonthKey'),
 
   actions: {
     makeDayActive: function (day) {

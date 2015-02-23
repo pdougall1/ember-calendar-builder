@@ -2,6 +2,12 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
+  queryParams: {
+    currentMonth: {
+      refreshModel: true
+    }
+  },
+
   setupController: function (controller) {
     var events, ordinals, i, today;
     events = [];

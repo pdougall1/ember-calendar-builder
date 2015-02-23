@@ -43,8 +43,8 @@ var Day = function (dateKey, options) {
     var viewableEvents = Object.keys(events).map(function (eventKey) {
       return events[eventKey];
     });
-    this.viewableEvents = viewableEvents
-  }
+    this.viewableEvents = viewableEvents;
+  };
 
   this.handleOptions();
   this.build();

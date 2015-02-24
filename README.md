@@ -70,4 +70,29 @@ export default Ember.Controller.extend(CalendarMixin, {
 
   * You must pass in `calendar`.  The calendar object is initialized in the mixin, so it lives in the controller.  Therefor you need to give the component access this way.
 
-  * The date 
+  * The date ?
+
+
+
+  * The route leading to your controller might look something like this.
+```
+import Ember from 'ember';
+
+export default Ember.Route.extend({
+
+  queryParams: {
+    currentMonth: {
+      refreshModel: true
+    }
+  },
+
+  model: function () {
+    return this.store.find('event');
+  },
+
+  setupController: function (controller, model) {
+    // the name of this paramter is important
+    controller.set('calendarEvents', model);
+  }
+});
+```

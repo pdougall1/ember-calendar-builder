@@ -7,7 +7,6 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  eventCount: 0,
 
   defaultOptions: {
     hasNewEventButton: false
@@ -17,8 +16,6 @@ export default Ember.Component.extend({
     var calendar = this.get('calendar');
     if (calendar) {
       this.applyOptions();
-      this.set('eventCount', this.get('calendar.eventCount'));
-      calendar.component = this; // this is probably bad :(
       this._super();
     } else {
       console.log('You do not currently have a calendar set.  This is probably because you have not included the CalendarMixin in your controller.');
@@ -36,8 +33,14 @@ export default Ember.Component.extend({
     });
   },
 
+  getCurrentMonthFromDate: function (date) {
+    return moment(date + '-01');
+  },
+
   currentMonth: function () {
-    return moment(this.get('date')).startOf('month');
+    var date = this.getCurrentMonthFromDate(this.get('date'));
+    console.log('date changed : ' + date + ' -and- ' + moment(date).format('YYYY-MM'));
+    return moment(date).startOf('month');
   }.property('date'),
 
   currentMonthKey: function () {
@@ -50,7 +53,7 @@ export default Ember.Component.extend({
 
   month: function () {
     return this.get('calendar').showMe(this.get("currentMonthKey"));
-  }.property('currentMonthKey', 'eventCount'),
+  }.property('currentMonthKey', 'calendar.eventCount'),
 
   actions: {
     makeDayActive: function (day) {

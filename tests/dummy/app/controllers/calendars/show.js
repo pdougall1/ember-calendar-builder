@@ -3,8 +3,12 @@ import CalendarMixin from 'ember-calendar-builder/mixins/calendar-mixin';
 
 export default Ember.Controller.extend(CalendarMixin, {
   queryParams: ['currentMonth'],
-  currentMonth: '2015-01',
   someOptions: { hasNewEventButton: true },
+
+  currentMonth: function () {
+    return moment(new Date).format('YYYY-MM');
+  }.property(),
+  
   calendarDate: function () {
     return this.get('currentMonth');
   }.property('currentMonth'),

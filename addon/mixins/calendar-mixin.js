@@ -24,9 +24,6 @@ export default Ember.Mixin.create({
   calendarAddEvents: function (events) {
     var _this = this;
     events.forEach( function (event) {
-      if (_this) {
-        console.log(_this.calendarAddEvent);  
-      }
       _this.calendarAddEvent(event);
     });
   },

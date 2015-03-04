@@ -13,6 +13,15 @@ var Calendar = function (initialMonthKey) {
     day.active = true;
   };
 
+  this.toggleChosen = function (dateKey) {
+    var day = this.findDay(dateKey);
+    if (day.chosen) {
+      day.chosen = false
+    } else {
+      day.chosen = true
+    }
+  };
+
   this.findDay = function (dateKey) {
     var date = moment(dateKey);
     var month = this.months[date.format('YYYY-MM')];

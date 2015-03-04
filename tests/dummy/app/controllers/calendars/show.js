@@ -5,6 +5,10 @@ export default Ember.Controller.extend(CalendarMixin, {
   queryParams: ['currentMonth'],
   someOptions: { hasNewEventButton: true },
 
+  startDate: function () {
+    return moment('2015-01-05');
+  }.property(),
+
   currentMonth: function () {
     return moment(new Date).format('YYYY-MM');
   }.property(),
@@ -38,6 +42,10 @@ export default Ember.Controller.extend(CalendarMixin, {
 
       this.transitionToRoute('calendars.show', {queryParams: {currentMonth: newMonth }});
     },
+
+    chooseDate: function (date) {
+      this.set('startDate', moment(date));
+    }
   }
 
 });

@@ -2,6 +2,10 @@ html, body {
   margin: 20px;
 }
 
+.chosen {
+  background-color: orange;
+}
+
 .active {
   background: orange;
 }

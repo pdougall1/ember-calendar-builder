@@ -8,8 +8,8 @@ export default Ember.Route.extend({
     }
   },
 
-  model: function () {
-    return this.store.find('event');
+  model: function (params) {
+    return this.store.find('event', params);
   },
 
   setupController: function (controller, model) {

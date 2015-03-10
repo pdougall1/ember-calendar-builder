@@ -10,7 +10,7 @@ export default Ember.Controller.extend(CalendarMixin, {
   }.property(),
 
   currentMonth: function () {
-    return moment(new Date).format('YYYY-MM');
+    return moment(new Date()).format('YYYY-MM');
   }.property(),
   
   calendarDate: function () {

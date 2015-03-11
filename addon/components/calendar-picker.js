@@ -56,7 +56,7 @@ export default Ember.Component.extend({
 
   actions: {
     toggleChosenDay: function (day) {
-      this.sendAction('chooseDate', day.date)
+      this.sendAction('chooseDate', day.date);
     },
 
     previousMonth: function () {

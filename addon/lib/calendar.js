@@ -16,9 +16,9 @@ var Calendar = function (initialMonthKey) {
   this.toggleChosen = function (dateKey) {
     var day = this.findDay(dateKey);
     if (day.chosen) {
-      day.chosen = false
+      day.chosen = false;
     } else {
-      day.chosen = true
+      day.chosen = true;
     }
   };
 
